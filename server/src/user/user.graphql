@@ -1,0 +1,40 @@
+type User {
+  id: Int
+  name: String
+  email: String
+  password: String
+  tasks: [Task]
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  id: Int!
+  name: String!
+}
+
+type Query {
+  users: [User]!
+  user(id: Int!): User
+}
+type Query {
+  me: User
+}
+
+type Mutation {
+  login(email: String, password: String): String
+}
+
+type Mutation {
+  register(name: String, email: String, password: String): User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User
+}

@@ -1,0 +1,4 @@
+bool doTask()
+{
+return false;
+}
