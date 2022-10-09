@@ -9,6 +9,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
+import { GroupsModule } from './groups/groups.module';
+import { MembersModule } from './members/members.module';
+import { PostsModule } from './posts/posts.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -27,6 +31,10 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     TasksModule,
     AuthModule,
+    GroupsModule,
+    MembersModule,
+    PostsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

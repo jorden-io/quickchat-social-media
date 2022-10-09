@@ -5,11 +5,11 @@ import { CreateTaskInput, UpdateTaskInput } from 'src/types/graphpl';
 @Injectable()
 export class TasksService {
   constructor(private prisma: PrismaService) {}
-  // create({ task, userId }: CreateTaskInput) {
-  //   return this.prisma.tasks.create({
-  //     data: { task, userId },
-  //   });
-  // }
+  create({ task, user_id }: CreateTaskInput) {
+    return this.prisma.tasks.create({
+      data: { task, user_id },
+    });
+  }
 
   findAll() {
     return this.prisma.tasks.findMany();

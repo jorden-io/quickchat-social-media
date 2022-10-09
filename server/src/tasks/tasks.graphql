@@ -5,7 +5,7 @@ type Task {
 
 input CreateTaskInput {
   task: String
-  userId: Int
+  user_id: Int
 }
 
 input UpdateTaskInput {

@@ -11,12 +11,14 @@ datasource db {
 }
 
 model users {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
   password String
   name     String
-
-  tasks tasks[]
+  posts    posts[]
+  tasks    tasks[]
+  groups   groups[]
+  members  members  @relation(fields: [id], references: [member_id])
 }
 
 model tasks {
@@ -24,4 +26,53 @@ model tasks {
   task    String
   user_id Int?
   users   users? @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model groups {
+  group_id       Int              @id @default(autoincrement())
+  group_name     String
+  description    String
+  leader_id      Int
+  created        DateTime         @default(now())
+  members        members[]
+  group_messages group_messages[]
+  users          users            @relation(fields: [leader_id], references: [id])
+}
+
+model group_messages {
+  message_id Int      @id @default(autoincrement())
+  message    String
+  user_id    Int
+  group_id   Int
+  sent       DateTime @default(now())
+  groups     groups?  @relation(fields: [group_id], references: [group_id])
+}
+
+model members {
+  member_id Int      @id
+  id        Int      @default(autoincrement())
+  group_id  Int
+  joined    DateTime @default(now())
+  group     groups   @relation(fields: [group_id], references: [group_id])
+  users     users[]
+  //@@id([member_id, group_id])
+}
+
+model posts {
+  post_id    Int        @id @default(autoincrement())
+  post_title String
+  post_body  String
+  user_id    Int
+  created    DateTime   @default(now())
+  users      users?     @relation(fields: [user_id], references: [id])
+  comments   comments[]
+}
+
+model comments {
+  comment_id   Int      @id @default(autoincrement())
+  comment_body String
+  user_id      Int
+  post_id      Int
+  created      DateTime @default(now())
+  posts        posts?   @relation(fields: [comment_id], references: [post_id])
 }

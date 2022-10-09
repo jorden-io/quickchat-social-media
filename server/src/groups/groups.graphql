@@ -1,0 +1,31 @@
+type Group {
+  group_id: Int
+  group_name: String
+  description: String
+  leader_id: Int
+  users: [User]
+  members: [Member]
+}
+
+input CreateGroupInput {
+  group_name: String
+  description: String
+  leader_id: Int
+}
+
+input UpdateGroupInput {
+  id: Int!
+  group_name: String
+  description: String
+}
+
+type Query {
+  groups: [Group]!
+  group(id: Int!): Group
+}
+
+type Mutation {
+  createGroup(createGroupInput: CreateGroupInput!): Group!
+  updateGroup(updateGroupInput: UpdateGroupInput!): Group!
+  removeGroup(id: Int!): Group
+}

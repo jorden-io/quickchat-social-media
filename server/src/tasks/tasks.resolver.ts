@@ -6,10 +6,10 @@ import { CreateTaskInput, UpdateTaskInput } from 'src/types/graphpl';
 export class TasksResolver {
   constructor(private readonly tasksService: TasksService) {}
 
-  // @Mutation('createTask')
-  // create(@Args('createTaskInput') createTaskInput: CreateTaskInput) {
-  //   return this.tasksService.create(createTaskInput);
-  // }
+  @Mutation('createTask')
+  create(@Args('createTaskInput') createTaskInput: CreateTaskInput) {
+    return this.tasksService.create(createTaskInput);
+  }
 
   @Query('tasks')
   findAll() {

@@ -3,7 +3,10 @@ type User {
   name: String
   email: String
   password: String
+  posts: [Post]
   tasks: [Task]
+  member: [Member]
+  groups: [Group]
 }
 
 input CreateUserInput {

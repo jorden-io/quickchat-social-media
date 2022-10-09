@@ -1,0 +1,28 @@
+type Member {
+  member_id: Int
+  id: Int
+  group_id: Int
+  users: [User]
+  group: [Group]
+}
+
+input CreateMemberInput {
+  group_id: Int
+  member_id: Int
+}
+
+input UpdateMemberInput {
+  id: Int!
+}
+
+type Query {
+  members: [Member]!
+  member(id: Int!): Member
+  memberinfo(member_id: Int): Member
+}
+
+type Mutation {
+  join(createMemberInput: CreateMemberInput!): Member!
+  updateMember(updateMemberInput: UpdateMemberInput!): Member!
+  removeMember(id: Int!): Member
+}

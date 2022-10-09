@@ -12,8 +12,8 @@ export class UserService {
       include: { tasks: true },
     });
   }
-  createToken({id, email}: User) {
-    return jwt.sign({email, id}, 'shaby123', {
+  createToken({ id, email }: User) {
+    return jwt.sign({ email, id }, 'shaby123', {
       expiresIn: '1hr',
     });
   }
@@ -29,7 +29,18 @@ export class UserService {
   findOne(id: number) {
     return this.prisma.users.findUnique({
       where: { id },
-      include: { tasks: true },
+      include: {
+        posts: { include: { comments: true } },
+        tasks: true,
+        members: true,
+        groups: {
+          include: {
+            members: {
+              include: { users: { include: { tasks: true, groups: true } } },
+            },
+          },
+        },
+      },
     });
   }
 

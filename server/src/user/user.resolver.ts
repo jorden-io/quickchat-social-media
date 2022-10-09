@@ -36,18 +36,13 @@ export class UserResolver {
     @Args('password') password: string,
   ) {
     const hashedPassword = await hash(password, 12);
-    //try {
     return await this.userService.register({
       name,
       email,
       password: hashedPassword,
     });
-    // } catch (err) {
-    //   console.log(err);
-    //   return false;
-    // }
-    return true;
   }
+
   @Mutation()
   async login(
     @Args('email') email: string,
@@ -62,8 +57,6 @@ export class UserResolver {
       throw new Error('wrong password');
     }
     return this.userService.createToken(user);
-
-    //this.userService.createToken(user);
   }
 
   @Query('users')
@@ -74,13 +67,13 @@ export class UserResolver {
   @Query()
   @UseGuards(new AuthGuard())
   me(@Context('user') user: User) {
-    return this.userService.findOne(user.id)
+    return this.userService.findOne(user.id);
   }
 
-  // @Query()
-  // findOne(@Args('id') id: number) {
-  //   return this.userService.findOne(id);
-  // }
+  @Query('user')
+  findOne(@Args('id') id: number) {
+    return this.userService.findOne(id);
+  }
 
   @Mutation('updateUser')
   update(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
