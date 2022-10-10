@@ -1,23 +1,28 @@
 type User {
   id: Int
-  name: String
   email: String
+  first_name: String
+  last_name: String
+  user_name: String
   password: String
   posts: [Post]
   tasks: [Task]
-  member: [Member]
+  members: [Member]
   groups: [Group]
+  group_messages: [Message]
 }
 
 input CreateUserInput {
-  name: String!
+  first_name: String!
+  last_name: String!
+  user_name: String!
   email: String!
   password: String!
 }
 
 input UpdateUserInput {
   id: Int!
-  name: String!
+  first_name: String!
 }
 
 type Query {
@@ -29,11 +34,11 @@ type Query {
 }
 
 type Mutation {
-  login(email: String, password: String): String
+  login( email: String, password: String): String
 }
 
 type Mutation {
-  register(name: String, email: String, password: String): User!
+  register( first_name:String, last_name: String, user_name: String, email: String, password: String): User!
 }
 
 type Mutation {

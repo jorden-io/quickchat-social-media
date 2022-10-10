@@ -21,7 +21,9 @@ export class CommentsService {
 
   findOne(comment_id: number) {
     return this.prisma.comments.findUnique({
-      where: { comment_id },
+      where: {
+        comment_id,
+      }, include: {posts: true}
     });
   }
 

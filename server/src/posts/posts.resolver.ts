@@ -1,6 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { CreatePostInput, UpdatePostInput } from 'src/types/graphpl';
 import { PostsService } from './posts.service';
+import { CreatePostInput } from './dto/create-post.input';
+import { UpdatePostInput } from './dto/update-post.input';
 
 @Resolver('Post')
 export class PostsResolver {
@@ -23,7 +24,7 @@ export class PostsResolver {
 
   @Mutation('updatePost')
   update(@Args('updatePostInput') updatePostInput: UpdatePostInput) {
-    return this.postsService.update(updatePostInput.post_id, updatePostInput);
+    return this.postsService.update(updatePostInput.id, updatePostInput);
   }
 
   @Mutation('removePost')

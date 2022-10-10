@@ -9,9 +9,9 @@
 /* eslint-disable */
 
 export class CreateCommentInput {
-    user_id?: Nullable<number>;
-    post_id?: Nullable<number>;
     comment_body?: Nullable<string>;
+    post_id?: Nullable<number>;
+    user_id?: Nullable<number>;
 }
 
 export class UpdateCommentInput {
@@ -40,16 +40,27 @@ export class UpdateMemberInput {
     id: number;
 }
 
+export class CreateMessageInput {
+    message?: Nullable<string>;
+    user_id?: Nullable<number>;
+    group_id?: Nullable<number>;
+}
+
+export class UpdateMessageInput {
+    message?: Nullable<string>;
+    message_id: number;
+}
+
 export class CreatePostInput {
+    user_id?: Nullable<number>;
     post_title?: Nullable<string>;
     post_body?: Nullable<string>;
-    user_id?: Nullable<number>;
 }
 
 export class UpdatePostInput {
     post_title?: Nullable<string>;
     post_body?: Nullable<string>;
-    post_id: number;
+    id: number;
 }
 
 export class CreateTaskInput {
@@ -62,14 +73,16 @@ export class UpdateTaskInput {
 }
 
 export class CreateUserInput {
-    name: string;
+    first_name: string;
+    last_name: string;
+    user_name: string;
     email: string;
     password: string;
 }
 
 export class UpdateUserInput {
     id: number;
-    name: string;
+    first_name: string;
 }
 
 export class Comment {
@@ -94,6 +107,10 @@ export abstract class IQuery {
 
     abstract memberinfo(member_id?: Nullable<number>): Nullable<Member> | Promise<Nullable<Member>>;
 
+    abstract messages(): Nullable<Message>[] | Promise<Nullable<Message>[]>;
+
+    abstract message(message_id: number): Nullable<Message> | Promise<Nullable<Message>>;
+
     abstract posts(): Nullable<Post>[] | Promise<Nullable<Post>[]>;
 
     abstract post(post_id: number): Nullable<Post> | Promise<Nullable<Post>>;
@@ -114,7 +131,7 @@ export abstract class IMutation {
 
     abstract updateComment(updateCommentInput: UpdateCommentInput): Comment | Promise<Comment>;
 
-    abstract removeComment(id: number): Nullable<Comment> | Promise<Nullable<Comment>>;
+    abstract removeComment(comment_id: number): Nullable<Comment> | Promise<Nullable<Comment>>;
 
     abstract createGroup(createGroupInput: CreateGroupInput): Group | Promise<Group>;
 
@@ -128,11 +145,17 @@ export abstract class IMutation {
 
     abstract removeMember(id: number): Nullable<Member> | Promise<Nullable<Member>>;
 
+    abstract createMessage(createMessageInput: CreateMessageInput): Message | Promise<Message>;
+
+    abstract updateMessage(updateMessageInput: UpdateMessageInput): Message | Promise<Message>;
+
+    abstract removeMessage(message_id: number): Nullable<Message> | Promise<Nullable<Message>>;
+
     abstract createPost(createPostInput: CreatePostInput): Post | Promise<Post>;
 
     abstract updatePost(updatePostInput: UpdatePostInput): Post | Promise<Post>;
 
-    abstract removePost(id: number): Nullable<Post> | Promise<Nullable<Post>>;
+    abstract removePost(post_id: number): Nullable<Post> | Promise<Nullable<Post>>;
 
     abstract createTask(createTaskInput: CreateTaskInput): Task | Promise<Task>;
 
@@ -142,7 +165,7 @@ export abstract class IMutation {
 
     abstract login(email?: Nullable<string>, password?: Nullable<string>): Nullable<string> | Promise<Nullable<string>>;
 
-    abstract register(name?: Nullable<string>, email?: Nullable<string>, password?: Nullable<string>): User | Promise<User>;
+    abstract register(first_name?: Nullable<string>, last_name?: Nullable<string>, user_name?: Nullable<string>, email?: Nullable<string>, password?: Nullable<string>): User | Promise<User>;
 
     abstract createUser(createUserInput: CreateUserInput): User | Promise<User>;
 
@@ -158,6 +181,7 @@ export class Group {
     leader_id?: Nullable<number>;
     users?: Nullable<Nullable<User>[]>;
     members?: Nullable<Nullable<Member>[]>;
+    group_messages?: Nullable<Nullable<Message>[]>;
 }
 
 export class Member {
@@ -166,6 +190,13 @@ export class Member {
     group_id?: Nullable<number>;
     users?: Nullable<Nullable<User>[]>;
     group?: Nullable<Nullable<Group>[]>;
+}
+
+export class Message {
+    message_id?: Nullable<number>;
+    message?: Nullable<string>;
+    user_id?: Nullable<number>;
+    group_id?: Nullable<number>;
 }
 
 export class Post {
@@ -183,13 +214,16 @@ export class Task {
 
 export class User {
     id?: Nullable<number>;
-    name?: Nullable<string>;
     email?: Nullable<string>;
+    first_name?: Nullable<string>;
+    last_name?: Nullable<string>;
+    user_name?: Nullable<string>;
     password?: Nullable<string>;
     posts?: Nullable<Nullable<Post>[]>;
     tasks?: Nullable<Nullable<Task>[]>;
-    member?: Nullable<Nullable<Member>[]>;
+    members?: Nullable<Nullable<Member>[]>;
     groups?: Nullable<Nullable<Group>[]>;
+    group_messages?: Nullable<Nullable<Message>[]>;
 }
 
 type Nullable<T> = T | null;

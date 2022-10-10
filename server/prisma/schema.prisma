@@ -11,21 +11,26 @@ datasource db {
 }
 
 model users {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  password String
-  name     String
-  posts    posts[]
-  tasks    tasks[]
-  groups   groups[]
-  members  members  @relation(fields: [id], references: [member_id])
+  id             Int              @id @default(autoincrement())
+  email          String           @unique
+  password       String
+  first_name     String
+  last_name      String
+  user_name      String
+  online         Boolean          @default(false)
+  posts          posts[]
+  tasks          tasks[]
+  groups         groups[]
+  group_messages group_messages[]
+  members        members? @relation(fields: [id], references: [member_id])
+  comments comments[]
 }
 
 model tasks {
   id      Int    @id @default(autoincrement())
   task    String
   user_id Int?
-  users   users? @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  users   users? @relation(fields: [user_id], references: [id])
 }
 
 model groups {
@@ -36,15 +41,16 @@ model groups {
   created        DateTime         @default(now())
   members        members[]
   group_messages group_messages[]
-  users          users            @relation(fields: [leader_id], references: [id])
+  users          users?           @relation(fields: [leader_id], references: [id])
 }
 
 model group_messages {
-  message_id Int      @id @default(autoincrement())
+  message_id Int     @id  @default(autoincrement())
   message    String
   user_id    Int
   group_id   Int
   sent       DateTime @default(now())
+  users      users    @relation(fields: [user_id], references: [id])
   groups     groups?  @relation(fields: [group_id], references: [group_id])
 }
 
@@ -75,4 +81,5 @@ model comments {
   post_id      Int
   created      DateTime @default(now())
   posts        posts?   @relation(fields: [comment_id], references: [post_id])
+  user users @relation(fields: [user_id], references: [id])
 }

@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CreateCommentInput, UpdateCommentInput } from 'src/types/graphpl';
 import { CommentsService } from './comments.service';
 
-
 @Resolver('Comment')
 export class CommentsResolver {
   constructor(private readonly commentsService: CommentsService) {}

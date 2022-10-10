@@ -1,4 +1,0 @@
-bool doTask()
-{
-return false;
-}

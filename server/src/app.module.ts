@@ -13,6 +13,7 @@ import { GroupsModule } from './groups/groups.module';
 import { MembersModule } from './members/members.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { CommentsModule } from './comments/comments.module';
     MembersModule,
     PostsModule,
     CommentsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -11,7 +11,6 @@ import { UpdateUserInput, CreateUserInput } from 'src/types/graphpl';
 import { UserService } from './user.service';
 import { hash, compare } from 'bcryptjs';
 import { User } from 'src/types/graphpl';
-//import { isAuth } from 'src/isAuth';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 
@@ -28,16 +27,20 @@ export class UserResolver {
   create(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.userService.create(createUserInput);
   }
-  @Mutation()
+  @Mutation('register')
   async register(
-    //@Args("createUserInput") createUserInput: CreateUserInput,
+    @Args('first_name') first_name: string,
+    @Args('last_name') last_name: string,
+    @Args('user_name') user_name: string,
     @Args('name') name: string,
     @Args('email') email: string,
     @Args('password') password: string,
   ) {
     const hashedPassword = await hash(password, 12);
     return await this.userService.register({
-      name,
+      first_name,
+      last_name,
+      user_name,
       email,
       password: hashedPassword,
     });

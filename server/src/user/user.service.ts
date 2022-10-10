@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserInput, UpdateUserInput, User } from 'src/types/graphpl';
 import * as jwt from 'jsonwebtoken';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
-  create({ name, email, password }: CreateUserInput) {
+  create({
+    first_name,
+    last_name,
+    user_name,
+    email,
+    password,
+  }: CreateUserInput) {
     return this.prisma.users.create({
-      data: { name, email, password },
-      include: { tasks: true },
+      data: { first_name, last_name, user_name, email, password },
     });
   }
   createToken({ id, email }: User) {
@@ -17,22 +22,17 @@ export class UserService {
       expiresIn: '1hr',
     });
   }
-  // createToken(user: User) {
-  //   return jwt.sign(user, 'shaby123', {
-  //     expiresIn: '1hr',
-  //   });
-  // }
   findAll() {
     return this.prisma.users.findMany();
-    //, { include: { tasks: true } };
   }
   findOne(id: number) {
     return this.prisma.users.findUnique({
       where: { id },
       include: {
-        posts: { include: { comments: true } },
+        //posts: { include: { comments: true } },
         tasks: true,
         members: true,
+        posts: {include: {comments: true}},
         groups: {
           include: {
             members: {
@@ -44,30 +44,36 @@ export class UserService {
     });
   }
 
-  update(id: number, { name }: UpdateUserInput) {
+  update(id: number, { first_name }: UpdateUserInput) {
     return this.prisma.users.update({
       where: { id },
       data: {
-        name,
+        first_name,
       },
     });
   }
 
-  register({ name, email, password }: CreateUserInput) {
+  register({
+    first_name,
+    last_name,
+    user_name,
+    email,
+    password,
+  }: CreateUserInput) {
     return this.prisma.users.create({
       data: {
-        name,
         email,
+        first_name,
+        last_name,
+        user_name,
         password,
       },
-      select: { name: true, email: true },
     });
   }
 
   login(email: string) {
     return this.prisma.users.findUnique({
       where: { email },
-      include: { tasks: true },
     });
   }
 

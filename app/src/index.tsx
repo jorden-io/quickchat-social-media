@@ -3,8 +3,15 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloProvider, ApolloLink, from, HttpLink, ApolloClient, InMemoryCache } from "@apollo/client";
-import {ErrorLink, onError} from "@apollo/client/link/error"
+import {
+  ApolloProvider,
+  ApolloLink,
+  from,
+  HttpLink,
+  ApolloClient,
+  InMemoryCache,
+} from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,14 +19,14 @@ const root = ReactDOM.createRoot(
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message, locations, path }) => {
-      //alert(message);
+      console.log(message);
     });
   }
 });
 
 const authLink = new ApolloLink((operation, forward) => {
   const token = localStorage.token;
-  //CHECK
+
   if (token) {
     operation.setContext({
       headers: {
@@ -44,8 +51,4 @@ root.render(
     </React.StrictMode>
   </ApolloProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

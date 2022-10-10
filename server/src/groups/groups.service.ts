@@ -22,8 +22,9 @@ export class GroupsService {
       where: { group_id },
       //include: {members: true, users: true}
       include: {
-        users: true,
-        members: { include: { users: { include: { tasks: true } } } },
+        group_messages: true, 
+        users: {include: {groups: true, tasks: true, members: true}},
+        members: { include: {group: true, users: { include: { tasks: true } } } },
       },
     });
   }

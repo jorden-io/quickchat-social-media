@@ -8,28 +8,24 @@ export class PostsService {
   create({ post_body, post_title, user_id }: CreatePostInput) {
     return this.prisma.posts.create({
       data: {
-        user_id,
         post_body,
         post_title,
+        user_id,
       },
     });
   }
 
   findAll() {
-    return this.prisma.posts.findMany({
-       include: {comments: true}
-    });
+    return this.prisma.posts.findMany()
   }
 
   findOne(post_id: number) {
-    return this.prisma.posts.findUnique({
-      where: { post_id },
-      include: { comments: true },
-    });
+    return this.prisma.posts.findUnique({where: {post_id
+    }, include: {users: true, comments: true}})
   }
 
-  update(id: number, updatePostInput: UpdatePostInput) {
-    return `This action updates a #${id} post`;
+  update(post_id: number, updatePostInput: UpdatePostInput) {
+    return `This action updates a #${post_id} post`;
   }
 
   remove(id: number) {

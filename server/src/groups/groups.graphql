@@ -5,6 +5,7 @@ type Group {
   leader_id: Int
   users: [User]
   members: [Member]
+  group_messages: [Message]
 }
 
 input CreateGroupInput {
