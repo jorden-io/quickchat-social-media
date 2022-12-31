@@ -7,6 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class UserService {
   constructor(private prisma: PrismaService) {}
   create({
+    avatar_src,
+    gender,
     first_name,
     last_name,
     user_name,
@@ -14,27 +16,51 @@ export class UserService {
     password,
   }: CreateUserInput) {
     return this.prisma.users.create({
-      data: { first_name, last_name, user_name, email, password },
+      data: {
+        avatar_src,
+        gender,
+        first_name,
+        last_name,
+        user_name,
+        email,
+        password,
+      },
     });
   }
-  createToken({ id, email }: User) {
-    return jwt.sign({ email, id }, 'shaby123', {
+  createAccessToken({ id, email }: User) {
+    return jwt.sign({ email, id }, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: '1hr',
+    });
+  }
+  createRefreshToken({ id, email }: User) {
+    return jwt.sign({ email, id }, process.env.REFESH_TOKEN_SECRET, {
+      expiresIn: '7d',
     });
   }
   findAll() {
     return this.prisma.users.findMany();
   }
+  findUser(user_name: string) {
+    return this.prisma.users.findUnique({
+      where: { user_name },
+      include: {
+        profile_prefrences: true,
+        posts: { include: { comments: true } },
+      },
+    });
+  }
   findOne(id: number) {
     return this.prisma.users.findUnique({
       where: { id },
       include: {
-        //posts: { include: { comments: true } },
+        profile_prefrences: true,
         tasks: true,
         members: true,
-        posts: {include: {comments: true}},
+        comments: true,
+        posts: { include: { comments: true } },
         groups: {
           include: {
+            group_messages: true,
             members: {
               include: { users: { include: { tasks: true, groups: true } } },
             },
@@ -54,6 +80,8 @@ export class UserService {
   }
 
   register({
+    avatar_src,
+    gender,
     first_name,
     last_name,
     user_name,
@@ -62,6 +90,8 @@ export class UserService {
   }: CreateUserInput) {
     return this.prisma.users.create({
       data: {
+        avatar_src,
+        gender,
         email,
         first_name,
         last_name,

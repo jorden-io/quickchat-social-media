@@ -1,0 +1,8 @@
+mutation updateProfilePrefrences($updateProfilePrefrenceInput: UpdateProfilePrefrenceInput!) {
+  updateProfilePrefrence(updateProfilePrefrenceInput: $updateProfilePrefrenceInput) {
+    user_id
+    background_color
+    frame_color
+    accent_color
+  }
+}

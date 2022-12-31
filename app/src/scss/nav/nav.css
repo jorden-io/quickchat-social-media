@@ -1,0 +1,80 @@
+@media screen and (max-width: 600px) {
+  @keyframes slide {
+    from {
+      height: 0;
+    }
+    to {
+      height: 72px;
+    }
+  }
+  .nav-container {
+    animation: slide 0.6s normal;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+}
+.nav-container {
+  margin: 0;
+}
+.nav-container nav {
+  padding: 6px;
+  background-color: rgb(55, 55, 55);
+  box-shadow: 0px 0px 5px black;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+}
+.nav-container nav img {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0px 0px 6px black;
+  border-radius: 5px;
+  margin-right: 0px;
+  margin-left: -15px;
+}
+.nav-container nav a {
+  padding: 20px;
+  text-decoration: none;
+  color: rgb(133, 133, 133);
+}
+.nav-container nav .side-nav-btn {
+  color: grey;
+  font-size: 25px;
+  background: none;
+  box-shadow: none;
+  float: left;
+}
+.nav-container nav .side-nav-btn:hover {
+  box-shadow: none;
+  color: rgb(200, 200, 200);
+}
+.nav-container nav button {
+  cursor: pointer;
+  border: none;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 12px;
+  color: rgb(200, 200, 200);
+  box-shadow: 0px 0px 4px black;
+  background-color: rgb(133, 133, 133);
+  transition: 0.3s;
+  width: 120px;
+}
+.nav-container nav button:first-child {
+  border-right: 2px rgb(164, 164, 164) solid;
+  border-radius: 0px;
+  margin-right: 0px;
+  margin-left: -10px;
+}
+.nav-container nav button:last-child {
+  margin-right: 10px;
+}
+.nav-container nav button:hover {
+  box-shadow: 0px 0px 2px black;
+}
+
+/*# sourceMappingURL=nav.css.map */

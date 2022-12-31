@@ -63,6 +63,20 @@ export class UpdatePostInput {
     id: number;
 }
 
+export class CreateProfilePrefrenceInput {
+    user_id?: Nullable<number>;
+    background_color?: Nullable<string>;
+    frame_color?: Nullable<string>;
+    accent_color?: Nullable<string>;
+}
+
+export class UpdateProfilePrefrenceInput {
+    id?: Nullable<number>;
+    background_color?: Nullable<string>;
+    frame_color?: Nullable<string>;
+    accent_color?: Nullable<string>;
+}
+
 export class CreateTaskInput {
     task?: Nullable<string>;
     user_id?: Nullable<number>;
@@ -76,12 +90,16 @@ export class CreateUserInput {
     first_name: string;
     last_name: string;
     user_name: string;
-    email: string;
+    avatar_src?: Nullable<string>;
+    gender?: Nullable<string>;
+    email?: Nullable<string>;
     password: string;
 }
 
 export class UpdateUserInput {
     id: number;
+    avatar_src?: Nullable<string>;
+    gender?: Nullable<string>;
     first_name: string;
 }
 
@@ -115,6 +133,10 @@ export abstract class IQuery {
 
     abstract post(post_id: number): Nullable<Post> | Promise<Nullable<Post>>;
 
+    abstract profilePrefrences(): Nullable<ProfilePrefrence>[] | Promise<Nullable<ProfilePrefrence>[]>;
+
+    abstract profilePrefrence(id: number): Nullable<ProfilePrefrence> | Promise<Nullable<ProfilePrefrence>>;
+
     abstract tasks(): Nullable<Task>[] | Promise<Nullable<Task>[]>;
 
     abstract task(id: number): Nullable<Task> | Promise<Nullable<Task>>;
@@ -124,6 +146,8 @@ export abstract class IQuery {
     abstract user(id: number): Nullable<User> | Promise<Nullable<User>>;
 
     abstract me(): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract findUser(user_name?: Nullable<string>): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export abstract class IMutation {
@@ -157,6 +181,12 @@ export abstract class IMutation {
 
     abstract removePost(post_id: number): Nullable<Post> | Promise<Nullable<Post>>;
 
+    abstract createProfilePrefrence(createProfilePrefrenceInput: CreateProfilePrefrenceInput): ProfilePrefrence | Promise<ProfilePrefrence>;
+
+    abstract updateProfilePrefrence(updateProfilePrefrenceInput: UpdateProfilePrefrenceInput): ProfilePrefrence | Promise<ProfilePrefrence>;
+
+    abstract removeProfilePrefrence(id: number): Nullable<ProfilePrefrence> | Promise<Nullable<ProfilePrefrence>>;
+
     abstract createTask(createTaskInput: CreateTaskInput): Task | Promise<Task>;
 
     abstract updateTask(updateTaskInput: UpdateTaskInput): Task | Promise<Task>;
@@ -165,7 +195,7 @@ export abstract class IMutation {
 
     abstract login(email?: Nullable<string>, password?: Nullable<string>): Nullable<string> | Promise<Nullable<string>>;
 
-    abstract register(first_name?: Nullable<string>, last_name?: Nullable<string>, user_name?: Nullable<string>, email?: Nullable<string>, password?: Nullable<string>): User | Promise<User>;
+    abstract register(avatar_src?: Nullable<string>, gender?: Nullable<string>, first_name?: Nullable<string>, last_name?: Nullable<string>, user_name?: Nullable<string>, email?: Nullable<string>, password?: Nullable<string>): User | Promise<User>;
 
     abstract createUser(createUserInput: CreateUserInput): User | Promise<User>;
 
@@ -207,6 +237,14 @@ export class Post {
     comments?: Nullable<Nullable<Comment>[]>;
 }
 
+export class ProfilePrefrence {
+    id?: Nullable<number>;
+    user_id?: Nullable<number>;
+    background_color?: Nullable<string>;
+    frame_color?: Nullable<string>;
+    accent_color?: Nullable<string>;
+}
+
 export class Task {
     id: number;
     task: string;
@@ -218,12 +256,17 @@ export class User {
     first_name?: Nullable<string>;
     last_name?: Nullable<string>;
     user_name?: Nullable<string>;
+    gender?: Nullable<string>;
+    avatar_src?: Nullable<string>;
     password?: Nullable<string>;
+    online?: Nullable<boolean>;
     posts?: Nullable<Nullable<Post>[]>;
     tasks?: Nullable<Nullable<Task>[]>;
-    members?: Nullable<Nullable<Member>[]>;
     groups?: Nullable<Nullable<Group>[]>;
     group_messages?: Nullable<Nullable<Message>[]>;
+    members?: Nullable<Nullable<Member>[]>;
+    comments?: Nullable<Nullable<Comment>[]>;
+    profile_prefrences?: Nullable<Nullable<ProfilePrefrence>[]>;
 }
 
 type Nullable<T> = T | null;

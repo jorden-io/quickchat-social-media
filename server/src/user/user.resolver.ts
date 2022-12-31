@@ -1,12 +1,4 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ObjectType,
-  Field,
-  Context,
-} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { UpdateUserInput, CreateUserInput } from 'src/types/graphpl';
 import { UserService } from './user.service';
 import { hash, compare } from 'bcryptjs';
@@ -14,11 +6,6 @@ import { User } from 'src/types/graphpl';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 
-@ObjectType()
-class loginRes {
-  @Field()
-  accessToken: string;
-}
 @Resolver('User')
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
@@ -29,15 +16,18 @@ export class UserResolver {
   }
   @Mutation('register')
   async register(
+    @Args('gender') gender: string,
+    @Args('avatar_src') avatar_src: string,
     @Args('first_name') first_name: string,
     @Args('last_name') last_name: string,
     @Args('user_name') user_name: string,
-    @Args('name') name: string,
     @Args('email') email: string,
     @Args('password') password: string,
   ) {
     const hashedPassword = await hash(password, 12);
     return await this.userService.register({
+      avatar_src,
+      gender,
       first_name,
       last_name,
       user_name,
@@ -59,7 +49,7 @@ export class UserResolver {
     if (!valid) {
       throw new Error('wrong password');
     }
-    return this.userService.createToken(user);
+    return this.userService.createAccessToken(user);
   }
 
   @Query('users')
@@ -73,6 +63,10 @@ export class UserResolver {
     return this.userService.findOne(user.id);
   }
 
+  @Query('findUser')
+  findByUsername(@Args('user_name') user_name: string) {
+    return this.userService.findUser(user_name);
+  }
   @Query('user')
   findOne(@Args('id') id: number) {
     return this.userService.findOne(id);

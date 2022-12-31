@@ -16,12 +16,18 @@ export class PostsService {
   }
 
   findAll() {
-    return this.prisma.posts.findMany()
+    return this.prisma.posts.findMany({
+      include: {
+        comments: true,
+      },
+    });
   }
 
   findOne(post_id: number) {
-    return this.prisma.posts.findUnique({where: {post_id
-    }, include: {users: true, comments: true}})
+    return this.prisma.posts.findUnique({
+      where: { post_id },
+      include: { users: true, comments: true },
+    });
   }
 
   update(post_id: number, updatePostInput: UpdatePostInput) {

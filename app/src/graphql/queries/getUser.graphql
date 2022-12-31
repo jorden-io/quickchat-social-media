@@ -1,0 +1,28 @@
+query getUser($userName: String) {
+  findUser(user_name: $userName) {
+    id
+    email
+    last_name
+    first_name
+    gender
+    user_name
+    avatar_src
+    profile_prefrences {
+      accent_color
+      background_color
+      frame_color
+    }
+    posts {
+      post_id
+      post_title
+      post_body
+      user_id
+      comments {
+        comment_id
+        comment_body
+        user_id
+        post_id
+      }
+    }
+  }
+}

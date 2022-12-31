@@ -14,6 +14,7 @@ import { MembersModule } from './members/members.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
 import { MessagesModule } from './messages/messages.module';
+import { ProfilePrefrencesModule } from './profile_prefrences/profile_prefrences.module';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { MessagesModule } from './messages/messages.module';
         path: join(process.cwd(), 'src/types/graphpl.ts'),
         outputAs: 'class',
       },
-      context: ({ req }) => ({ headers: req.headers }),
+      context: ({ res, req }) => ({res, headers: req.headers }),
     }),
     PrismaModule,
     UserModule,
@@ -37,6 +38,7 @@ import { MessagesModule } from './messages/messages.module';
     PostsModule,
     CommentsModule,
     MessagesModule,
+    ProfilePrefrencesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

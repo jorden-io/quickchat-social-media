@@ -4,24 +4,33 @@ type User {
   first_name: String
   last_name: String
   user_name: String
+  gender: String
+  avatar_src: String
   password: String
+  online: Boolean
   posts: [Post]
   tasks: [Task]
-  members: [Member]
   groups: [Group]
   group_messages: [Message]
+  members: [Member]
+  comments: [Comment]
+  profile_prefrences: [ProfilePrefrence]
 }
 
 input CreateUserInput {
   first_name: String!
   last_name: String!
   user_name: String!
-  email: String!
+  avatar_src: String
+  gender: String
+  email: String
   password: String!
 }
 
 input UpdateUserInput {
   id: Int!
+  avatar_src: String
+  gender: String
   first_name: String!
 }
 
@@ -32,13 +41,24 @@ type Query {
 type Query {
   me: User
 }
-
-type Mutation {
-  login( email: String, password: String): String
+type Query {
+  findUser(user_name: String): User
 }
 
 type Mutation {
-  register( first_name:String, last_name: String, user_name: String, email: String, password: String): User!
+  login(email: String, password: String): String
+}
+
+type Mutation {
+  register(
+    avatar_src: String
+    gender: String
+    first_name: String
+    last_name: String
+    user_name: String
+    email: String
+    password: String
+  ): User!
 }
 
 type Mutation {

@@ -1,0 +1,36 @@
+query Me {
+  me {
+    id
+    email
+    last_name
+    first_name
+    user_name
+    gender
+    avatar_src
+    online
+    posts {
+      post_id
+      post_title
+      user_id
+      post_body
+      comments {
+        comment_id
+        comment_body
+        user_id
+        post_id
+      }
+    }
+    profile_prefrences {
+      user_id
+      frame_color
+      background_color
+      accent_color
+    }
+    groups {
+      group_id
+      group_name
+      description
+      leader_id
+    }
+  }
+}

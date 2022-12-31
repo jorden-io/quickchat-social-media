@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
     }
     const token = auth.split(' ')[1];
     try {
-      return await jwt.verify(token, 'shaby123');
+      return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     } catch {
       throw new HttpException('invalid token', HttpStatus.UNAUTHORIZED);
     }

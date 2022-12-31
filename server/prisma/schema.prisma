@@ -11,19 +11,31 @@ datasource db {
 }
 
 model users {
-  id             Int              @id @default(autoincrement())
-  email          String           @unique
-  password       String
-  first_name     String
-  last_name      String
-  user_name      String
-  online         Boolean          @default(false)
-  posts          posts[]
-  tasks          tasks[]
-  groups         groups[]
-  group_messages group_messages[]
-  members        members? @relation(fields: [id], references: [member_id])
-  comments comments[]
+  id                 Int                 @id @default(autoincrement())
+  email              String               @unique
+  password           String
+  first_name         String
+  last_name          String
+  user_name          String               @unique
+  online             Boolean              @default(false)
+  gender             String?
+  avatar_src         String?
+  posts              posts[]
+  tasks              tasks[]
+  groups             groups[]
+  group_messages     group_messages[]
+  members            members?             @relation(fields: [id], references: [member_id])
+  comments           comments[]
+  profile_prefrences profile_prefrences[]
+}
+
+model profile_prefrences {
+  id               Int    @id @default(autoincrement())
+  user_id          Int    @unique
+  background_color String
+  frame_color      String
+  accent_color     String
+  users            users  @relation(fields: [user_id], references: [id])
 }
 
 model tasks {
@@ -35,7 +47,7 @@ model tasks {
 
 model groups {
   group_id       Int              @id @default(autoincrement())
-  group_name     String
+  group_name     String           @unique
   description    String
   leader_id      Int
   created        DateTime         @default(now())
@@ -45,7 +57,7 @@ model groups {
 }
 
 model group_messages {
-  message_id Int     @id  @default(autoincrement())
+  message_id Int      @id @default(autoincrement())
   message    String
   user_id    Int
   group_id   Int
@@ -55,11 +67,11 @@ model group_messages {
 }
 
 model members {
-  member_id Int      @id
-  id        Int      @default(autoincrement())
-  group_id  Int
+  member_id Int? @unique    
+  id        Int      @id @default(autoincrement())
+  group_id  Int?
   joined    DateTime @default(now())
-  group     groups   @relation(fields: [group_id], references: [group_id])
+  group     groups?  @relation(fields: [group_id], references: [group_id])
   users     users[]
   //@@id([member_id, group_id])
 }
@@ -81,5 +93,5 @@ model comments {
   post_id      Int
   created      DateTime @default(now())
   posts        posts?   @relation(fields: [comment_id], references: [post_id])
-  user users @relation(fields: [user_id], references: [id])
+  user         users?   @relation(fields: [user_id], references: [id])
 }

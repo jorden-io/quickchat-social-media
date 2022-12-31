@@ -1,0 +1,8 @@
+mutation CreateProfilePrefrence($createProfilePrefrenceInput: CreateProfilePrefrenceInput!) {
+  createProfilePrefrence(createProfilePrefrenceInput: $createProfilePrefrenceInput) {
+    user_id
+    background_color
+    frame_color
+    accent_color
+  }
+}

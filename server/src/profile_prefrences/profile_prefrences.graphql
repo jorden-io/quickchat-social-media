@@ -1,0 +1,32 @@
+type ProfilePrefrence {
+  id: Int
+  user_id: Int
+  background_color: String
+  frame_color: String
+  accent_color: String
+}
+
+input CreateProfilePrefrenceInput {
+  user_id: Int
+  background_color: String
+  frame_color: String
+  accent_color: String
+}
+
+input UpdateProfilePrefrenceInput {
+  id: Int
+  background_color: String
+  frame_color: String
+  accent_color: String
+}
+
+type Query {
+  profilePrefrences: [ProfilePrefrence]!
+  profilePrefrence(id: Int!): ProfilePrefrence
+}
+
+type Mutation {
+  createProfilePrefrence(createProfilePrefrenceInput: CreateProfilePrefrenceInput!): ProfilePrefrence!
+  updateProfilePrefrence(updateProfilePrefrenceInput: UpdateProfilePrefrenceInput!): ProfilePrefrence!
+  removeProfilePrefrence(id: Int!): ProfilePrefrence
+}

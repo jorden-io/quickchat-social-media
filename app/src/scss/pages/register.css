@@ -1,0 +1,150 @@
+.space-man {
+  font-size: 35px;
+  animation: float 30s infinite;
+}
+@keyframes float {
+  10% {
+    transform: rotateZ(100deg);
+  }
+  15% {
+    margin-top: 45px;
+  }
+  30% {
+    transform: rotateZ(200deg);
+  }
+  40% {
+    margin-left: 500px;
+  }
+  50% {
+    transform: rotateZ(520deg);
+  }
+  65% {
+    margin-top: -45px;
+  }
+  70% {
+    margin-right: 500px;
+  }
+  80% {
+    transform: rotateZ(420deg);
+  }
+  85% {
+    transform: rotateZ(180deg);
+  }
+  90% {
+    margin-top: 100px;
+  }
+  95% {
+    transform: rotateZ(300deg);
+  }
+}
+
+.main-register-form {
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 6px black;
+  margin: 60px;
+  background-color: rgb(55, 55, 55);
+}
+.main-register-form span {
+  color: lightseagreen;
+}
+.main-register-form button {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.form-wrapper {
+  transition: 1s;
+  animation: fadeIn 1s linear;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 10px;
+}
+.form-wrapper .user-detail-container input {
+  width: 200px;
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+}
+.form-wrapper .gender-selector-container {
+  display: flex;
+  justify-content: center;
+  transition: 0.5s;
+}
+.form-wrapper .gender-selector-container a * {
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 10px;
+  margin: 25px;
+  border-radius: 3px;
+  border: solid 1px rgb(55, 55, 55);
+}
+.form-wrapper .gender-selector-container a *:hover {
+  border: solid 1px lightseagreen;
+  box-shadow: 0px 0px 5px lightseagreen;
+}
+.form-wrapper .gender-selector-container a *:active {
+  box-shadow: 0px 0px 8px rgb(41, 197, 189);
+}
+.form-wrapper h2 {
+  color: lightseagreen;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.form-wrapper .account-info-container header {
+  margin-right: 100px;
+}
+.form-wrapper .account-info-container .account-info-inner-container input {
+  font-weight: 500;
+  width: 200px;
+  padding: 10px;
+  border-radius: 3px;
+  border: none;
+}
+.form-wrapper .account-info-container .account-info-inner-container p a {
+  text-decoration: none;
+  color: lightseagreen;
+}
+.form-wrapper .img-container img {
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 3px;
+  border: none;
+  width: 80px;
+  border: solid 1px rgb(55, 55, 55);
+}
+.form-wrapper .img-container img:hover {
+  border-color: rgb(41, 197, 189);
+  box-shadow: 0px 0px 5px lightseagreen;
+}
+
+.register-form-navigator-btns {
+  display: flex;
+  justify-content: center;
+  gap: 20%;
+}
+.register-form-navigator-btns button {
+  color: rgb(200, 200, 200);
+  transition: 0.5s;
+  cursor: pointer;
+  font-size: 15px;
+  background: none;
+  border: solid 1px;
+  padding: 10px;
+  width: 60px;
+  box-shadow: 0px 0px 3px;
+  border-radius: 10px;
+  justify-content: center;
+  display: flex;
+}
+.register-form-navigator-btns button:hover {
+  box-shadow: 0px 0px 6px;
+}
+
+/*# sourceMappingURL=register.css.map */

@@ -1,0 +1,24 @@
+mutation register(
+  $avatarSrc: String
+  $gender: String
+  $firstName: String
+  $lastName: String
+  $userName: String
+  $email: String
+  $password: String
+) {
+  register(
+    avatar_src: $avatarSrc
+    gender: $gender
+    first_name: $firstName
+    last_name: $lastName
+    user_name: $userName
+    email: $email
+    password: $password
+  ) {
+    id
+    email
+    password
+    user_name
+  }
+}

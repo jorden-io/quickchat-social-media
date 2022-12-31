@@ -12,15 +12,20 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/react-icons": "^3.0.0",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "sass": "^1.55.0",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
+    "sass": "npx sass --watch src/styles:src/scss",
     "gen": "graphql-codegen",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -48,6 +53,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.1",
     "@graphql-codegen/client-preset": "^1.0.2",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.3"
+    "@graphql-codegen/typescript-react-apollo": "^3.3.3",
+    "@types/react-color": "^3.0.6"
   }
 }
